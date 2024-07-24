@@ -19,13 +19,13 @@ import {
 } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import Loading from "../components/Loading";
-//import LottieView from 'lottie-react-native';
+//import LottieView from "lottie-react-native";
 
 export default function signin() {
   const router = useRouter();
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
 
   const handleLogin = async () => {
     if (!emailRef.current || !passwordRef.current) {
@@ -34,7 +34,7 @@ export default function signin() {
     }
   };
 
-  const { loading, setLoading } = useState(true);
+  const [loading, setLoading] = useState(false);
 
   return (
     <GestureHandlerRootView>
@@ -94,7 +94,7 @@ export default function signin() {
               <View>
                 {loading ? (
                   <View className="flex-row justify-center">
-                    <Loading style={{ size: hp(8) }} />
+                    <Loading size={hp(10)} />
                   </View>
                 ) : (
                   <TouchableOpacity

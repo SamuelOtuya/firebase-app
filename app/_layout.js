@@ -5,8 +5,7 @@ import "../global.css";
 import { AuthContextProvider, useAuth } from "../context/authContext";
 
 const MainLayout = () => {
-  // const { isAuthenticated } = useAuth();
-  const isAuthenticated = true;
+  const { isAuthenticated } = useAuth();
   const segments = useSegments();
   const router = useRouter();
 
@@ -16,8 +15,8 @@ const MainLayout = () => {
     const inApp = segments[0] == "(app)";
     if (isAuthenticated && !inApp) {
       //redirect to home
-      router.replace("signin");
-    } else if ((isAuthenticated = false)) {
+      router.replace("home");
+    } else if (isAuthenticated == false) {
       //redirect to signin
       router.replace("signin");
     }

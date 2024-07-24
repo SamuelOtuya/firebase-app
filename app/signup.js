@@ -19,15 +19,19 @@ import {
 } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import Loading from "../components/Loading";
+import { AuthContext, useAuth } from "../context/authContext";
+
 //import LottieView from 'lottie-react-native';
 
 export default function signup() {
   const router = useRouter();
+  const { register } = useAuth();
+  const [loading, setLoading] = useState(false);
 
-  const usernameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const profileRef = useRef();
+  const usernameRef = useRef("");
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const profileRef = useRef("");
 
   const handleRegister = async () => {
     if (
@@ -39,10 +43,20 @@ export default function signup() {
       Alert.alert("Sign In", "Please fill all the fields!");
       return;
     }
+    setLoading(true);
+    let response = await register(
+      emailRef.current,
+      passwordRef.current,
+      usernameRef.current,
+      profileRef.current
+    );
+    setLoading(false);
+
+    console.log("got result:", response);
+    if (!response.success) {
+      alert.Alert("Sign up", response.msg);
+    }
   };
-
-  const { loading, setLoading } = useState(true);
-
   return (
     <GestureHandlerRootView>
       <View className="flex-1">
@@ -80,7 +94,7 @@ export default function signup() {
                 ></TextInput>
               </View>
               <View
-                style={{ height: hp(7) }}
+                style={{ height: hp(10) }}
                 className="flex-row gap-4 px-4 bg-neutral-100 items-center rounded-xl"
               >
                 <Ionicons name="mail-sharp" size={24} color="gray" />
@@ -125,7 +139,7 @@ export default function signup() {
               <View>
                 {loading ? (
                   <View className="flex-row justify-center">
-                    <Loading style={{ size: hp(8) }} />
+                    <Loading size={hp(12)} />
                   </View>
                 ) : (
                   <TouchableOpacity

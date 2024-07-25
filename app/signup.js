@@ -54,7 +54,7 @@ export default function signup() {
 
     console.log("got result:", response);
     if (!response.success) {
-      alert.Alert("Sign up", response.msg);
+      Alert.alert("Sign up", response.msg);
     }
   };
   return (

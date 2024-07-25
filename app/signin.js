@@ -19,10 +19,13 @@ import {
 } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import Loading from "../components/Loading";
+import { useAuth } from "../context/authContext";
 //import LottieView from "lottie-react-native";
 
 export default function signin() {
   const router = useRouter();
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -32,9 +35,14 @@ export default function signin() {
       Alert.alert("Sign In", "Please fill all the fields!");
       return;
     }
+    //login process
+    setLoading(true);
+    const response = await login(emailRef.current, passwordRef.current);
+    setLoading(false);
+    if (!response.success) {
+      Alert.alert("Sign in", response.msg);
+    }
   };
-
-  const [loading, setLoading] = useState(false);
 
   return (
     <GestureHandlerRootView>

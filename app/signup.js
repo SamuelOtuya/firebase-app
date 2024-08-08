@@ -20,6 +20,7 @@ import {
 import { useRouter } from "expo-router";
 import Loading from "../components/Loading";
 import { AuthContext, useAuth } from "../context/authContext";
+import CustomKeyBoardView from "../components/CustomKeyBoardView";
 
 //import LottieView from 'lottie-react-native';
 
@@ -59,7 +60,7 @@ export default function signup() {
   };
   return (
     <GestureHandlerRootView>
-      <View className="flex-1">
+      <CustomKeyBoardView>
         <StatusBar style="dark" />
         <View
           style={{ paddingTop: hp(10), paddingHorizontal: wp(5) }}
@@ -148,7 +149,7 @@ export default function signup() {
                   >
                     <View className="bg-indigo-700 p-4 rounded-xl justify-center items-center">
                       <Text
-                        style={{ fontSize: 25 }}
+                        style={{ fontSize: 20}}
                         className="color-white font-bold"
                       >
                         Sign Up
@@ -177,7 +178,7 @@ export default function signup() {
             </View>
           </View>
         </View>
-      </View>
+      </CustomKeyBoardView>
     </GestureHandlerRootView>
   );
 }

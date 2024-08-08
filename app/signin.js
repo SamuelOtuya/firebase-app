@@ -20,6 +20,7 @@ import {
 import { useRouter } from "expo-router";
 import Loading from "../components/Loading";
 import { useAuth } from "../context/authContext";
+import CustomKeyBoardView from "../components/CustomKeyBoardView";
 //import LottieView from "lottie-react-native";
 
 export default function signin() {
@@ -46,7 +47,7 @@ export default function signin() {
 
   return (
     <GestureHandlerRootView>
-      <View className="flex-1">
+      <CustomKeyBoardView>
         <StatusBar style="dark" />
         <View
           style={{ paddingTop: hp(10), paddingHorizontal: wp(5) }}
@@ -111,7 +112,7 @@ export default function signin() {
                   >
                     <View className="bg-indigo-700 p-4 rounded-xl justify-center items-center">
                       <Text
-                        style={{ fontSize: 25 }}
+                        style={{ fontSize: 20 }}
                         className="color-white font-bold"
                       >
                         Sign In
@@ -131,7 +132,7 @@ export default function signin() {
                 <Pressable onPress={() => router.push("signup")}>
                   <Text
                     style={{ fontSize: hp(2.7) }}
-                    className="font-semibold text-indigo-500"
+                    className="font-semibold text-indigo-500 "
                   >
                     Sign Up
                   </Text>
@@ -140,7 +141,7 @@ export default function signin() {
             </View>
           </View>
         </View>
-      </View>
+      </CustomKeyBoardView>
     </GestureHandlerRootView>
   );
 }

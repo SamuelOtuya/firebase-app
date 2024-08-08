@@ -10,8 +10,6 @@ import React from "react";
 const ios = Platform.os == "ios";
 export default function CustomKeyBoardView({ children }) {
   return (
-    <View>
-      <Text>CustomKeyBoardView</Text>
       <KeyboardAvoidingView
         behavior={ios ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -19,11 +17,11 @@ export default function CustomKeyBoardView({ children }) {
         <ScrollView
           style={{ flex: 1 }}
           bounces="false"
-          showsVerticalScrollIndicator="false"
+          showsVerticalScrollIndicator={false}
         >
           {children}
         </ScrollView>
       </KeyboardAvoidingView>
-    </View>
+  
   );
 }

@@ -13,7 +13,7 @@ export default function home() {
 
   return (
     <View>
-      <Text style={{ fontSize: 50 }}>Fuck you David!</Text>
+      <Text style={{ fontSize: 50 }}>Hello There</Text>
       <Pressable onPress={handleLogout}>
         <Text>LOG OUT</Text>
       </Pressable>

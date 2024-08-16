@@ -17,6 +17,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
+      console.log('got user:',user);
       if (user) {
         setIsAuthenticated(true);
         setUser(user);
@@ -38,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
       setUser({
         ...user,
         username: data.username,
-        profileUrl: data.profileUrl,
+        profileUrl: data.profileurl,
         userId: data.userId,
       });
     }
@@ -60,7 +61,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const register = async (email, password, username, profileUrl) => {
+  const register = async (email, password, username, profileurl) => {
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -73,7 +74,7 @@ export const AuthContextProvider = ({ children }) => {
 
       await setDoc(doc(db, "users", response?.user?.uid), {
         username,
-        profileUrl,
+        profileurl,
         userId: response?.user?.uid,
       });
       //setUser(response.user);

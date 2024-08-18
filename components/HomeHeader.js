@@ -11,11 +11,25 @@ import {
 import { Image } from "expo-image";
 import { useAuth } from "../context/authContext";
 import { blurhash } from "../utils/common";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
+import { MenuItem } from "./CustomMenuItems";
+import { Feather } from "@expo/vector-icons";
 
 const ios = Platform.OS == "ios";
 export default function HomeHeader() {
   const { top } = useSafeAreaInsets();
-  const { user } = useAuth();
+  const { user , logout} = useAuth();
+  const handleProfile=()=>{
+
+  }
+  const handleLogout= async()=>{
+    await logout();
+  }
 
   console.log(user); //debug
 
@@ -29,14 +43,47 @@ export default function HomeHeader() {
           Chats
         </Text>
       </View>
+
       <View>
-        <Image
+
+      <Menu>
+      <MenuTrigger customStyles={{
+        triggerWrapper:{
+
+        }
+      }}>
+<Image
           style={{ height: hp(5), aspectRatio: 1, borderRadius: 100 }}
           source={user?.profileUrl}
           placeholder={blurhash}
           transition={500}
         />
+      </MenuTrigger>
+      <MenuOptions customStyles={{
+        optionsContainer:{
+          borderRadius: 10,
+          borderCurve:"continuous",
+          marginTop:40,
+          marginLeft:-30,
+          backgroundColor:"white",
+          shadowOpacity:0.2,
+          width:160,
+          shadowOffset:{width:0,height:0}
+        }
+      }}>
+       <MenuItem text="profile" action={handleProfile} value={null} icon={<Feather name="user" size={hp(2.5) } color="#737373"/>}/>
+       <Divider/>
+       <MenuItem text="Log out" action={handleLogout} value={null} icon={<Feather name="log-out" size={hp(2.5) } color="#737373"/>}/>
+      </MenuOptions>
+    </Menu>
+      
       </View>
     </View>
   );
+}
+
+const Divider = ()=>{
+  return(
+    <View className="p-[1px] w-full bg-neutral-400"></View>
+  )
 }

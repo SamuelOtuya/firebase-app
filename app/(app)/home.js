@@ -8,19 +8,35 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { getDocs, query, where } from "firebase/firestore";
+import { usersRef } from "../../firebaseConfig";
 
 export default function home() {
   const { user,logout } = useAuth();
-  const [users,setUsers]=useState([1,2,3]);
+  const [users,setUsers]=useState([ ]);
   useEffect(()=>
     {if(user?.uid)getUsers();}
 )
 
   const getUsers=async()=>{
     //fetch users
+    const q = query(usersRef,where('userId','!=',user?.uid));
+
+    const querySnapshot = await getDocs(q);
+    
+    let data=[];
+    querySnapshot.forEach(doc=>{data.push({...doc.data()});
+  });
+try{
+    console.log('got users:',data);
+    setUsers(data);}
+
+    catch (error) {
+      console.error('Error fetching users:', error);
+    }
   }
 
-  //console.log("userdata:", user);
+  console.log("userdata:", user);
 
   return (
     <View className="flex-1 bg-white">
